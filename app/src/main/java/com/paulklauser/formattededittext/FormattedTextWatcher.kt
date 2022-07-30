@@ -10,6 +10,10 @@ private const val SEPARATOR = ' '
 
 class FormattedTextWatcher : TextWatcher {
 
+    private val groupings = arrayOf(4, 4, 4, 4)
+    private val maxLength = groupings.sum()
+    private val separatorIndices = getSeparatorIndices(groupings)
+
     private var forward = false
     private var inTextChange = false
     private var start = 0
@@ -33,30 +37,29 @@ class FormattedTextWatcher : TextWatcher {
         }
         inTextChange = true
         var selection = Selection.getSelectionEnd(s)
-        val strippedBuilder = StringBuilder(s.toString().replace(SEPARATOR.toString(), "").stripNonDigits())
+        val strippedBuilder =
+            StringBuilder(s.toString().replace(SEPARATOR.toString(), "").stripNonDigits())
         if (count <= 1) { // Typed
             val charactersStrippedBeforeStart = s.toString()
                 .substring(0..min(start, s.length - 1))
                 .count { it == SEPARATOR || !it.isDigit() }
             val adjustedStart = start - charactersStrippedBeforeStart
-            if (strippedBuilder.length > 16) { // Max length, ignore input
+            if (strippedBuilder.length > maxLength) { // Max length, ignore input
                 strippedBuilder.delete(adjustedStart, adjustedStart + 1)
                 selection = max(selection - 1, 0)
             } else {
-                when (start) { // Use ol' start so that we know if we deleted a space
-                    4, 9, 14 -> {
-                        if (forward) {
-                            selection++
-                        } else {
-                            selection--
-                            strippedBuilder.delete(adjustedStart - 1, adjustedStart)
-                        }
+                if (separatorIndices.contains(start)) { // Use ol' start so that we know if we deleted a space
+                    if (forward) {
+                        selection++
+                    } else {
+                        selection--
+                        strippedBuilder.delete(adjustedStart - 1, adjustedStart)
                     }
                 }
             }
         } else { // Pasted
-            if (strippedBuilder.length > 16) {
-                strippedBuilder.delete(16, s.length)
+            if (strippedBuilder.length > maxLength) {
+                strippedBuilder.delete(maxLength, s.length)
             }
         }
 
@@ -71,14 +74,12 @@ class FormattedTextWatcher : TextWatcher {
 
     private fun format(text: String): String {
         return StringBuilder(text).run {
-            if (text.length > 4) {
-                insert(4, SEPARATOR)
-            }
-            if (text.length > 8) {
-                insert(9, SEPARATOR)
-            }
-            if (text.length > 12) {
-                insert(14, SEPARATOR)
+            var position = 0
+            for (i in groupings.indices) {
+                position += groupings[i]
+                if (text.length > position) {
+                    insert(position + i, SEPARATOR)
+                }
             }
             toString()
         }
@@ -92,5 +93,15 @@ class FormattedTextWatcher : TextWatcher {
             }
             toString()
         }
+    }
+
+    private fun getSeparatorIndices(groupings: Array<Int>): Array<Int> {
+        val indices = arrayOfNulls<Int>(groupings.size - 1)
+        var position = 0
+        for (i in indices.indices) {
+            position += groupings[i]
+            indices[i] = position + i
+        }
+        return indices as Array<Int>
     }
 }
