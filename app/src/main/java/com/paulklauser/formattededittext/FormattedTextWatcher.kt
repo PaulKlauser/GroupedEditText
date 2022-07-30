@@ -6,6 +6,8 @@ import android.text.TextWatcher
 import java.lang.Integer.max
 import kotlin.math.min
 
+private const val SEPARATOR = ' '
+
 class FormattedTextWatcher : TextWatcher {
 
     private var forward = false
@@ -31,11 +33,11 @@ class FormattedTextWatcher : TextWatcher {
         }
         inTextChange = true
         var selection = Selection.getSelectionEnd(s)
-        val strippedBuilder = StringBuilder(s.toString().replace(" ", "").stripNonDigits())
+        val strippedBuilder = StringBuilder(s.toString().replace(SEPARATOR.toString(), "").stripNonDigits())
         if (count <= 1) { // Typed
             val charactersStrippedBeforeStart = s.toString()
                 .substring(0..min(start, s.length - 1))
-                .count { it == ' ' || !it.isDigit() }
+                .count { it == SEPARATOR || !it.isDigit() }
             val adjustedStart = start - charactersStrippedBeforeStart
             if (strippedBuilder.length > 16) { // Max length, ignore input
                 strippedBuilder.delete(adjustedStart, adjustedStart + 1)
@@ -70,13 +72,13 @@ class FormattedTextWatcher : TextWatcher {
     private fun format(text: String): String {
         return StringBuilder(text).run {
             if (text.length > 4) {
-                insert(4, " ")
+                insert(4, SEPARATOR)
             }
             if (text.length > 8) {
-                insert(9, " ")
+                insert(9, SEPARATOR)
             }
             if (text.length > 12) {
-                insert(14, " ")
+                insert(14, SEPARATOR)
             }
             toString()
         }
