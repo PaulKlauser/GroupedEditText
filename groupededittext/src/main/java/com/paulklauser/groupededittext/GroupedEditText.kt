@@ -1,4 +1,4 @@
-package com.paulklauser.formattededittext
+package com.paulklauser.groupededittext
 
 import android.content.Context
 import android.text.TextUtils
@@ -6,13 +6,13 @@ import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.AppCompatEditText
 
-class FormattedEditText(context: Context, attrs: AttributeSet) : AppCompatEditText(context, attrs) {
+class GroupedEditText(context: Context, attrs: AttributeSet) : AppCompatEditText(context, attrs) {
 
-    private var formattedTextWatcher = FormattedTextWatcher(arrayOf(4, 4, 4, 4), ' ')
+    private var groupedTextWatcher = GroupedTextWatcher(arrayOf(4, 4, 4, 4), ' ')
 
     init {
         setRawInputType(EditorInfo.TYPE_CLASS_NUMBER)
-        addTextChangedListener(formattedTextWatcher)
+        addTextChangedListener(groupedTextWatcher)
     }
 
     /**
@@ -27,8 +27,8 @@ class FormattedEditText(context: Context, attrs: AttributeSet) : AppCompatEditTe
                 "Don't change the grouping and separator unless the field is empty!"
             )
         }
-        removeTextChangedListener(formattedTextWatcher)
-        formattedTextWatcher = FormattedTextWatcher(grouping, separator)
-        addTextChangedListener(formattedTextWatcher)
+        removeTextChangedListener(groupedTextWatcher)
+        groupedTextWatcher = GroupedTextWatcher(grouping, separator)
+        addTextChangedListener(groupedTextWatcher)
     }
 }

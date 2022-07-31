@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "FormattedEditText"
+rootProject.name = "GroupedEditText"
 include ':app'
+include ':groupededittext'

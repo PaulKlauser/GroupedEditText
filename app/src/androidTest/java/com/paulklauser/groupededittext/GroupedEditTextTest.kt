@@ -1,4 +1,4 @@
-package com.paulklauser.formattededittext
+package com.paulklauser.groupededittext
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -14,12 +14,13 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import com.paulklauser.groupededittext.sample.MainActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class FormattedEditTextTest {
+class GroupedEditTextTest {
     @Test
     fun enter_16_digits_formats_correctly() {
         launchActivity<MainActivity>()
@@ -170,7 +171,7 @@ class FormattedEditTextTest {
     @Test
     fun custom_grouping_and_separator_respected() {
         launchActivity<MainActivity>().onActivity {
-            it.findViewById<FormattedEditText>(R.id.editText)
+            it.findViewById<GroupedEditText>(R.id.editText)
                 .setGrouping(arrayOf(3, 2, 1, 4), '-')
         }
 

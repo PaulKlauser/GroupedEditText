@@ -1,4 +1,4 @@
-package com.paulklauser.formattededittext
+package com.paulklauser.groupededittext
 
 import android.view.View
 import android.widget.EditText

@@ -1,4 +1,4 @@
-package com.paulklauser.formattededittext
+package com.paulklauser.groupededittext
 
 import android.text.Editable
 import android.text.Selection
@@ -6,7 +6,7 @@ import android.text.TextWatcher
 import java.lang.Integer.max
 import kotlin.math.min
 
-class FormattedTextWatcher(
+class GroupedTextWatcher(
     private val groupings: Array<Int>,
     private val groupingSeparator: Char
 ) : TextWatcher {
