@@ -167,4 +167,18 @@ class FormattedEditTextTest {
             .check(matches(withText("1234 5678 9012 345")))
     }
 
+    @Test
+    fun custom_grouping_and_separator_respected() {
+        launchActivity<MainActivity>().onActivity {
+            it.findViewById<FormattedEditText>(R.id.editText)
+                .setGrouping(arrayOf(3, 2, 1, 4), '-')
+        }
+
+        onView(withId(R.id.editText))
+            .perform(typeText("1231211234"))
+
+        onView(withId(R.id.editText))
+            .check(matches(withText("123-12-1-1234")))
+    }
+
 }
