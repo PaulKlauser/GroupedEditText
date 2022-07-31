@@ -15,11 +15,11 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'io.github.paulklauser'
-                artifactId = 'gesturesequence'
+                artifactId = 'groupededittext'
                 pom {
-                    name = 'Gesture Sequence'
-                    description = 'A basic library that enables easy composition of gesture sequence recognition on a view.'
-                    url = 'https://github.com/PaulKlauser/GestureSequence'
+                    name = 'Grouped EditText'
+                    description = 'Formats input based on customizable groupings and separators.'
+                    url = 'https://github.com/PaulKlauser/GroupedEditText'
                     licenses {
                         license {
                             name = 'MIT License'
@@ -34,9 +34,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:git://git@github.com:PaulKlauser/GestureSequence.git'
-                        developerConnection = 'scm:git:ssh://git@github.com:PaulKlauser/GestureSequence.git'
-                        url = 'https://github.com/PaulKlauser/GestureSequence/tree/main'
+                        connection = 'scm:git:git://git@github.com:PaulKlauser/GroupedEditText.git'
+                        developerConnection = 'scm:git:ssh://git@github.com:PaulKlauser/GroupedEditText.git'
+                        url = 'https://github.com/PaulKlauser/GroupedEditText/tree/main'
                     }
                 }
                 artifact androidSourcesJar
