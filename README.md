@@ -2,6 +2,8 @@
 
 An EditText that handles formatting by groups with a custom separator.
 
+![Video Sample](screenshots/screen3.gif?raw=true)
+
 ## Examples
 `[4, 2, 1], '-'`
 
