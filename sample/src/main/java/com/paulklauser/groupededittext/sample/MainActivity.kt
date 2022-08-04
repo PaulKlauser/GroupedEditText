@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val editText = findViewById<GroupedEditText>(R.id.editText)
-        editText.setGrouping(arrayOf(4, 2, 1), '-')
+        editText.setGrouping(arrayOf(2, 2, 4), '/')
     }
 }

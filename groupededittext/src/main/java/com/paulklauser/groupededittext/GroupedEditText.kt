@@ -11,7 +11,13 @@ class GroupedEditText(context: Context, attrs: AttributeSet) : AppCompatEditText
     private var groupedTextWatcher = GroupedTextWatcher(arrayOf(4, 4, 4, 4), ' ')
 
     init {
-        setRawInputType(EditorInfo.TYPE_CLASS_NUMBER)
+//        setRawInputType(EditorInfo.TYPE_CLASS_NUMBER)
+        addTextChangedListener(groupedTextWatcher)
+    }
+
+    override fun setInputType(type: Int) {
+        super.setInputType(type)
+        removeTextChangedListener(groupedTextWatcher)
         addTextChangedListener(groupedTextWatcher)
     }
 

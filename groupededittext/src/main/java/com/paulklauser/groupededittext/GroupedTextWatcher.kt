@@ -8,7 +8,8 @@ import kotlin.math.min
 
 class GroupedTextWatcher(
     private val groupings: Array<Int>,
-    private val groupingSeparator: Char
+    private val groupingSeparator: Char,
+    private val onlyDigits: Boolean = false
 ) : TextWatcher {
     private val maxLength = groupings.sum()
     private val separatorIndices = getSeparatorIndices(groupings)
@@ -37,7 +38,7 @@ class GroupedTextWatcher(
         inTextChange = true
         var selection = Selection.getSelectionEnd(s)
         val strippedBuilder =
-            StringBuilder(s.toString().replace(groupingSeparator.toString(), "").stripNonDigits())
+            StringBuilder(s.toString().replace(groupingSeparator.toString(), "").run { if (onlyDigits) stripNonDigits() else this })
         if (count <= 1) { // Typed
             val charactersStrippedBeforeStart = s.toString()
                 .substring(0..min(start, s.length - 1))
